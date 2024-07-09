@@ -1,0 +1,57 @@
+{
+  "name": "starter-full-stack",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@analogjs/platform:vite",
+      "defaultConfiguration": "production",
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "sourcemap": false,
+          "mode": "production"
+        }
+      },
+      "outputs": [
+        "{options.outputPath}",
+        "{workspaceRoot}/dist/starter-full-stack/.nitro",
+        "{workspaceRoot}/dist/starter-full-stack/ssr",
+        "{workspaceRoot}/dist/starter-full-stack/analog"
+      ],
+      "options": {
+        "main": "starter-full-stack/src/main.ts",
+        "configFile": "starter-full-stack/vite.config.ts",
+        "outputPath": "dist/starter-full-stack/client",
+        "tsConfig": "starter-full-stack/tsconfig.app.json"
+      }
+    },
+    "serve": {
+      "executor": "@analogjs/platform:vite-dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "starter-full-stack:build",
+        "port": 4200
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "starter-full-stack:build:development",
+          "hmr": true
+        },
+        "production": {
+          "buildTarget": "starter-full-stack:build:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@analogjs/vitest-angular:test",
+      "outputs": [
+        "{projectRoot}/coverage"
+      ]
+    }
+  },
+  "tags": [],
+  "sourceRoot": "./starter-full-stack/src"
+}
